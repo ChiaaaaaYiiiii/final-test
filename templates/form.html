@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信用違約風險預測</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f2f5; padding-top: 50px; }
+        .card { border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #0d6efd; padding: 10px 20px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-primary">信用風險評估</h2>
+                    <p class="text-muted">請輸入以下 3 項資訊</p>
+                </div>
+
+                <form method="POST" action="/">
+                    
+                    <div class="vstack gap-3">
+                        <div>
+                            <label for="age" class="form-label fw-bold">1. 年齡 (Age)</label>
+                            <input type="number" class="form-control" id="age" name="age" placeholder="例如：35" required>
+                        </div>
+
+                        <div>
+                            <label for="MonthlyIncome" class="form-label fw-bold">2. 月收入 (Monthly Income)</label>
+                            <input type="number" class="form-control" id="MonthlyIncome" name="MonthlyIncome" placeholder="例如：50000" required>
+                        </div>
+
+                        <div>
+                            <label for="NumberOfDependents" class="form-label fw-bold">3. 扶養親屬人數 (Dependents)</label>
+                            <input type="number" class="form-control" id="NumberOfDependents" name="NumberOfDependents" value="0" required>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">開始預測</button>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                {% if result %}
+                <div class="alert alert-{{ result_class }} text-center">
+                    <h4>預測結果：{{ result }}</h4>
+                    <p class="fs-5 mb-0">違約機率：<strong>{{ probability }}</strong></p>
+                </div>
+                {% endif %}
+
+                {% if error %}
+                <div class="alert alert-danger text-center">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
